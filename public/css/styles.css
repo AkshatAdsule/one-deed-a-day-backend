@@ -5,6 +5,7 @@ body {
     height: 100%;
     background: rgb(131,58,180);
     background: linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    color: white;
 }
 
 .center {
@@ -16,10 +17,16 @@ body {
 
 .jumbotron {
     background-color: transparent;
+    color: rgb(200, 200, 200);
 }
 
 .display-4 {
     font-weight: 500;
+    color: white
+}
+
+.my-4 {
+    border-top-color: white
 }
 
 .footer {
@@ -30,5 +37,17 @@ body {
 /* forms */
 
 form {
-    padding: 10% 18%;
+    padding: 10% 30%;
+    color: white;
+    height: 80%;
+}
+
+.form-label {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.form-help {
+    color: white;
 }
