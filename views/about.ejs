@@ -1,48 +1,19 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css">
-    <title>One Deed a Day</title>
-</head>
+<%- include('partials/header') %> 
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">One Deed a Day</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <%- include('partials/navbar') %> 
 
     <div class="center">
         <div class="jumbotron">
             <h1 class="display-4">One deed a day</h1>
-            <p class="lead">Help you and the people around you with just one deed a day.</p>
+            <p class="lead">By doing just one thing a day, you can improve the lives of people near you!</p>
             <hr class="my-4">
             <p>Create deeds for everyone to do, and do deeds to help those around you!</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Help now!</a>
-          </div>
+            <a class="btn btn-lg btn-outline-dark" href="/register" role="button">Help now!</a>
+        </div>
     </div>
+    
+    <%- include('partials/footer') %> 
 </body>
 
 </html>
