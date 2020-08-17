@@ -25,3 +25,10 @@ body {
 .footer {
     text-align: center;
 }
+
+
+/* forms */
+
+form {
+    padding: 10% 18%;
+}
