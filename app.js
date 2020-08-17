@@ -10,6 +10,10 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
     res.render('about');
+});
+
+app.get('/register', function(req, res) {
+    res.render('register');
 })
 
 app.listen(7000, function() {
