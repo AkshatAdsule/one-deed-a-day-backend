@@ -3,9 +3,12 @@
 <body class="expandable-bg">
     <%- include('partials/navbar_loggedin') -%> 
         <div class="deeds">
-            <div class="deed">
-                <h2 class="deed-title">Title</h2>
-                <p class="deed-description">Description</p>
-                <a href="" class="deed-author">Author</a>
-            </div>
+            <% deeds.forEach(deed => { %>
+                <div class="deed">
+                    <h2 class="deed-title"><%= deed.title %></h2>
+                    <p class="deed-description"><%= deed.description %></p>
+                    <a href="" class="deed-author"><%= deed.author %></a>
+                </div>
+            <% }) %>
+        </div>
 </body>
