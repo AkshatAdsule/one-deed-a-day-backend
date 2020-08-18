@@ -1,0 +1,21 @@
+<%- include('partials/header') -%> 
+
+<body>
+    <%- include('partials/navbar_loggedin')  -%> 
+
+    <div class="center">
+        <form class="create-form" action="/create" method="post">
+            <div class="form-group">
+                <label for="title" class="form-label">Deed Title</label>
+                <input id="title" type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" type="text" class="form-control" name="description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-lg btn-outline-light">Create</button>
+        </form>
+    </div>
+
+    <%- include('partials/footer')  -%> 
+</body>
