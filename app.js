@@ -38,12 +38,13 @@ const deedSchema = mongoose.Schema({
         unique: true,
         required: true
     }, 
-    author: {
+    description: {
         type: String,
         required: true,
     },
-    image: {
-        type: String
+    author: {
+        type: String,
+        required: true,
     },
     completedUsers: {
         type: Array
@@ -113,11 +114,11 @@ app.post('/login', function(req, res) {
                     req.session.username = user.username;
                     res.send('logged in');
                 } else {
-                    res.send(hashErr)
+                    res.send("hashErr")
                 }
             });
         } else {
-            res.send(dbErr);
+            res.send("dbErr");
         }
         
     });
@@ -125,8 +126,32 @@ app.post('/login', function(req, res) {
 
 app.get('/logout', function(req, res) {
     req.session.username = null;
-    res.redirect    ('/');
+    res.redirect('/');
+});
+
+app.get('/home', function(req, res) {
+    if(req.session.username) {
+        res.render('home');
+    }
 })
+
+app.get('/create', function(req, res) {
+    req.session.username !== null ? res.render('create') : res.redirect('/');
+});
+
+app.post('/create', function(req, res) {
+    console.log(req.body)
+    Deed.create({
+        title: req.body.title,
+        description: req.body.description,
+        author: req.session.username,
+        completedUsers: []
+    }, function(creatErr) {
+        !creatErr ? res.redirect('/home') : res.send('Err :' + creatErr);
+    })
+});
+
+
 app.listen(process.env.PORT || 7000, function () {
     console.log('Server is running on 7000');
 });
