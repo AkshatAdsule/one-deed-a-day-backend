@@ -42,10 +42,14 @@ const deedSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    image: {
+        type: String
+    },
     completedUsers: {
         type: Array
     }
 });
+const Deed = mongoose.model('deed', deedSchema);
 
 const app = express();
 app.use(express.static('public'));
@@ -66,8 +70,9 @@ app.set('view engine', 'ejs');
 // Utility routes
 app.get('/_info', function(req, res) {
     res.send(req.session);
-})
+});
 
+// App routes
 app.get('/', function (req, res) {
     res.render('about');
 });
@@ -94,7 +99,6 @@ app.post('/register', function (req, res) {
 
 });
 
-
 app.get('/login', function(req, res) {
     res.render('login');
 });
@@ -119,6 +123,10 @@ app.post('/login', function(req, res) {
     });
 });
 
+app.get('/logout', function(req, res) {
+    req.session.username = null;
+    res.redirect    ('/');
+})
 app.listen(process.env.PORT || 7000, function () {
     console.log('Server is running on 7000');
 });
