@@ -92,7 +92,7 @@ app.post('/register', function (req, res) {
             }, function (err, newUser) {
                 if (!err) {
                     req.session.username = newUser.username;
-                    res.redirect('/');
+                    res.redirect('/home');
                 }
             });
         }
@@ -112,7 +112,7 @@ app.post('/login', function(req, res) {
             bcrypt.compare(req.body.password, user.password, function(hashErr, same) {
                 if(!hashErr && same) {
                     req.session.username = user.username;
-                    res.send('logged in');
+                    res.redirect('/home');
                 } else {
                     res.send("hashErr")
                 }
@@ -131,7 +131,10 @@ app.get('/logout', function(req, res) {
 
 app.get('/home', function(req, res) {
     if(req.session.username) {
-        res.render('home');
+        Deed.find({}, function(dbErr, deeds) {
+            !dbErr? res.render('home', {deeds: deeds}) : res.send(dbErr)
+        })
+        
     }
 })
 
