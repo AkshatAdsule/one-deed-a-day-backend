@@ -30,8 +30,22 @@ const userSchema = mongoose.Schema({
         required: true
     }
 });
-
 const User = mongoose.model('user', userSchema);
+
+const deedSchema = mongoose.Schema({
+    title: {
+        type: String,
+        unique: true,
+        required: true
+    }, 
+    author: {
+        type: String,
+        required: true,
+    },
+    completedUsers: {
+        type: Array
+    }
+});
 
 const app = express();
 app.use(express.static('public'));
