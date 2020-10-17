@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 
 mongoose.connect(
   `mongodb+srv://admin:${process.env.ATLAS_KEY}@one-deed-a-day.iudkb.mongodb.net/one-deed-a-day?retryWrites=true&w=majority`,
@@ -54,6 +55,7 @@ const Deed = mongoose.model("deed", deedSchema);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // deeds REST
 app
@@ -98,18 +100,37 @@ app
   });
 
 //login path
-app.get("/authenticate", function (req, res) {
-  User.findOne({ username: req.body.username }, function (error, user) {
-    if (!error && user) {
-      bcrypt.compare(req.body.password, user.password, function (error, same) {
-        error || !same
-          ? res.status(400).send("wrong password")
-          : res.status(200).send("success");
+app
+  .route("/users")
+  .get(function (req, res) {
+    User.findOne({ username: req.body.username }, function (error, user) {
+      if (!error && user) {
+        bcrypt.compare(req.body.password, user.password, function (
+          error,
+          same
+        ) {
+          error || !same
+            ? res.status(400).send("wrong password")
+            : res.status(200).send("success");
+        });
+      } else {
+        res.status(404).send("user cannot be found");
+      }
+    });
+  })
+  .post(function (req, res) {
+    bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
+      const newUser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: hash,
+      };
+      User.create(newUser, function (dbError, newUser) {
+        !dbError && newUser
+          ? res.status(200).send(newUser)
+          : res.status(500).send(dbError);
       });
-    } else {
-      res.status(404).send("user cannot be found");
-    }
+    });
   });
-});
 
-app.listen(2000);
+app.listen(process.env.PORT || 2000);
