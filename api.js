@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 
 mongoose.connect(
   `mongodb+srv://admin:${process.env.ATLAS_KEY}@one-deed-a-day.iudkb.mongodb.net/one-deed-a-day?retryWrites=true&w=majority`,
-  //mongodb+srv://admin:yzNpLiDOKUXRWQs6@one-deed-a-day.iudkb.mongodb.net/one-deed-a-day?retryWrites=true&w=majority
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
