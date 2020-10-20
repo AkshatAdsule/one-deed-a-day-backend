@@ -99,38 +99,33 @@ app
     });
   });
 
-//login path
-app
-  .route("/users")
-  .get(function (req, res) {
-    User.findOne({ username: req.body.username }, function (error, user) {
-      if (!error && user) {
-        bcrypt.compare(req.body.password, user.password, function (
-          error,
-          same
-        ) {
-          error || !same
-            ? res.status(400).send("wrong password")
-            : res.status(200).send("success");
-        });
-      } else {
-        res.status(404).send("user cannot be found");
-      }
-    });
-  })
-  .post(function (req, res) {
-    bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
-      const newUser = {
-        username: req.body.username,
-        email: req.body.email,
-        password: hash,
-      };
-      User.create(newUser, function (dbError, newUser) {
-        !dbError && newUser
-          ? res.status(200).send(newUser)
-          : res.status(500).send(dbError);
+app.post("/login", function (req, res) {
+  User.findOne({ username: req.body.username }, function (error, user) {
+    if (!error && user) {
+      bcrypt.compare(req.body.password, user.password, function (error, same) {
+        error || !same
+          ? res.status(400).send("wrong password")
+          : res.status(200).send("success");
       });
+    } else {
+      res.status(404).send("user cannot be found");
+    }
+  });
+});
+
+app.post("/signup", function (req, res) {
+  bcrypt.hash(req.body.password, 10, function (hashErr, hash) {
+    const newUser = {
+      username: req.body.username,
+      email: req.body.email,
+      password: hash,
+    };
+    User.create(newUser, function (dbError, newUser) {
+      !dbError && newUser
+        ? res.status(200).send(newUser)
+        : res.status(500).send(dbError);
     });
   });
+});
 
 app.listen(process.env.PORT || 2000);
